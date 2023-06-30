@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>assurance</title>
+  </head>
+
+  <body>
+    <h1>le tarif de mon assurance</h1>
+    <form method="post" action="/couleur">
+      <p>
+        <label for="age">entrez votre âge : </label>
+        <input type="number" id="age" name="age" />
+      </p>
+      <p>
+        <label for="duree">depuis combien d'année avez-vous le permis ?</label>
+        <input type="number" id="duree" name="duree" />
+      </p>
+      <p>
+        <label for="nbAccident">combien d'accident avez-vous eu ?</label>
+        <input type="number" id="nbAccident" name="nbAccident" />
+      </p>
+      <p>
+        <label for="anciennete"
+          >depuis combien quand êtes-vous notre assuré ?</label
+        >
+        <input type="number" id="anciennete" name="anciennete" />
+      </p>
+      <input type="submit" value="Ok" />
+    </form>
+    <hr />
+    <% if (tarif!=-1) { %>
+    <h3>Votre TARIF est de <%=tarif%></h3>
+    <% } %>
+  </body>
+</html>

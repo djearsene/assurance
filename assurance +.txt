@@ -1,0 +1,90 @@
+
+/*
+Une compagnie d'assurance automobile propose à ses clients quatre familles de tarifs identifiables par une couleur, 
+du moins onéreux au plus onéreux : tarifs bleu, vert, orange et rouge. 
+Le tarif dépend de la situation du conducteur :
+1. un conducteur de moins de 25 ans et titulaire du permis depuis moins de deux ans :
+	- il se voit attribuer le tarif rouge, si toutefois il n'a jamais été responsable d'accident. sinon la compagnie refuse de l'assurer.
+
+2. un conducteur de moins de 25 ans et titulaire du permis depuis plus de deux ans : 
+	- il se voit attribuer le tarif orange, si toutefois il n'a jamais été responsable d'accident. 
+	- Si il a eu un accident il aura le tarif rouge, si il a eu plus d'un accident la compagnie refuse de l'assurer.
+	
+3. un conducteur de plus de 25 ans et titulaire du permis depuis moins de deux ans : 
+	- il bénéficie du tarif vert s'il n'est à l'origine d'aucun accident et du tarif orange pour un accident, 
+    du tarif rouge pour deux accidents, et refusé au-delà.
+	
+4. un conducteur de plus de 25 ans et titulaire du permis depuis plus de deux ans :
+	- il bénéficie du tarif bleu s'il n'est à l'origine d'aucun accident et du tarif vert pour un accident, 
+    du tarif orange pour deux accidents, du tarif rouge pour trois accidents et refusé au-delà.
+
+De plus, pour encourager la fidélité des clients acceptés, la compagnie propose un contrat de la couleur immédiatement la plus avantageuse 
+s'il est entré dans la maison depuis plus de 2 ans (sauf pour ceux qui ont déjà le tarif le plus avantageux).
+
+Développer un script qui calcul le tarif auquel a droit un client.
+*/
+function getCouleur($t) {
+    if ($t==4)
+        return "bleu";
+    else if ($t==3)
+        return "vert";
+    else if ($t==2)
+        return "orange";
+    else if ($t==1)
+        return "rouge";
+    else
+        return "refusé";
+}
+
+include("../librairie.php");
+$age = lire("Quel age avez-vous ? :");
+$dureePermis = lire("Depuis combien d'année avez-vous le permis ? :");
+$nbAccident = lire("Combien avez-vous eu d'accident ? :");
+$anciennete = lire("Depuis combien d'année êtes-vous notre assuré ? :");
+
+//tarif au dépârt est bleu
+$tarif=4;
+
+//$tarif-- : décrémente de 1
+if ($age<=25 and $dureePermis<=2)
+    $tarif=$tarif-3;
+else if ($age<=25 and $dureePermis>2)
+    $tarif=$tarif-2;
+else if ($age>25 and $dureePermis<=2)
+    $tarif=$tarif-1;    
+
+$tarif=$tarif-$nbAccident;
+
+//tenir compte de l'ancienneté
+if ($tarif<=0)
+{
+    echo("vous etes refusé");
+} else if ($anciennete>=2) {
+    $tarif=$tarif+1;
+    if ($tarif>4)
+        $tarif=4;
+    echo("votre tarif est " . getCouleur($tarif));
+}
+
+
+/*
+//algorithme classique
+if ($age<=25 and $dureePermis<=2)
+{
+    if($nbAccident>0)
+        $tarif=1;
+    else
+        $tarif=0;
+}
+else if ($age<=25 and $dureePermis>2)
+{
+    if($nbAccident==0)
+        $tarid=2;
+    else if ($nbAccident==1)
+        $tarif=1;
+    else
+        $tarif=0;
+}
+*/
+
+
